@@ -1,0 +1,87 @@
+2026-06-24 23:59:38,178 [INFO] fetch_edgar: ── TILE ──────────────────────────
+2026-06-24 23:59:38,374 [INFO] fetch_edgar: CIK: 0000715787
+2026-06-24 23:59:38,709 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-24 23:59:38,839 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-24 23:59:39,361 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-24 23:59:41,370 [INFO] fetch_edgar: ── ECL ──────────────────────────
+2026-06-24 23:59:41,497 [INFO] fetch_edgar: CIK: 0000031462
+2026-06-24 23:59:41,805 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-24 23:59:41,935 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-24 23:59:42,423 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-24 23:59:44,428 [INFO] fetch_edgar: ── ENOV ──────────────────────────
+2026-06-24 23:59:44,576 [INFO] fetch_edgar: CIK: 0001420800
+2026-06-24 23:59:44,904 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-24 23:59:45,034 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-24 23:59:45,733 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:34:31,988 [INFO] fetch_edgar: ── TILE ──────────────────────────
+2026-06-25 02:34:32,128 [INFO] fetch_edgar: CIK: 0000715787
+2026-06-25 02:34:32,431 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:34:32,561 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:34:32,994 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:34:35,001 [INFO] fetch_edgar: ── ECL ──────────────────────────
+2026-06-25 02:34:35,132 [INFO] fetch_edgar: CIK: 0000031462
+2026-06-25 02:34:35,418 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:34:35,548 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:34:35,988 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:34:37,996 [INFO] fetch_edgar: ── None ──────────────────────────
+2026-06-25 02:38:46,853 [INFO] fetch_edgar: ── TILE ──────────────────────────
+2026-06-25 02:38:46,995 [INFO] fetch_edgar: CIK: 0000715787
+2026-06-25 02:38:47,297 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:38:47,427 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:38:47,838 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:38:47,838 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_1_2025.md
+2026-06-25 02:38:50,204 [INFO] fetch_edgar: ── ECL ──────────────────────────
+2026-06-25 02:38:50,350 [INFO] fetch_edgar: CIK: 0000031462
+2026-06-25 02:38:50,650 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:38:50,777 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:38:51,469 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:38:51,471 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_1_2025.md
+2026-06-25 02:38:53,477 [INFO] fetch_edgar: ── None ──────────────────────────
+2026-06-25 02:42:35,612 [INFO] fetch_edgar: ── TILE ──────────────────────────
+2026-06-25 02:42:35,776 [INFO] fetch_edgar: CIK: 0000715787
+2026-06-25 02:42:36,102 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:42:36,231 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:42:36,649 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:42:36,651 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_1_2025.md
+2026-06-25 02:42:36,780 [WARNING] fetch_edgar:   10-K Item 7: extraction too short or empty
+2026-06-25 02:42:36,780 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_7_2025.md
+2026-06-25 02:42:38,787 [INFO] fetch_edgar: ── ECL ──────────────────────────
+2026-06-25 02:42:38,920 [INFO] fetch_edgar: CIK: 0000031462
+2026-06-25 02:42:39,219 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:42:39,348 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:42:39,766 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:42:39,767 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_1_2025.md
+2026-06-25 02:42:39,773 [WARNING] fetch_edgar:   10-K Item 7: extraction too short or empty
+2026-06-25 02:42:39,775 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_7_2025.md
+2026-06-25 02:49:08,674 [INFO] fetch_edgar: ── TILE ──────────────────────────
+2026-06-25 02:49:08,833 [INFO] fetch_edgar: CIK: 0000715787
+2026-06-25 02:49:09,141 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:49:09,271 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:49:09,970 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:49:09,971 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_1_2025.md
+2026-06-25 02:49:10,388 [WARNING] fetch_edgar:   10-K Item 7: extraction too short or empty
+2026-06-25 02:49:10,389 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_7_2025.md
+2026-06-25 02:49:12,396 [INFO] fetch_edgar: ── ECL ──────────────────────────
+2026-06-25 02:49:12,529 [INFO] fetch_edgar: CIK: 0000031462
+2026-06-25 02:49:12,848 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 02:49:12,978 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 02:49:14,329 [WARNING] fetch_edgar:   10-K Item 1: extraction too short or empty
+2026-06-25 02:49:14,330 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_1_2025.md
+2026-06-25 02:49:15,201 [INFO] fetch_edgar:   10-K Item 7: 428,044 chars extracted
+2026-06-25 02:49:15,205 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_7_2025.md
+2026-06-25 17:51:01,717 [INFO] fetch_edgar: ── TILE ──────────────────────────
+2026-06-25 17:51:01,891 [INFO] fetch_edgar: CIK: 0000715787
+2026-06-25 17:51:02,253 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 17:51:02,384 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 17:51:03,204 [INFO] fetch_edgar:   10-K Item 1: 109,203 chars extracted
+2026-06-25 17:51:03,205 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_1_2025.md
+2026-06-25 17:51:03,702 [INFO] fetch_edgar:   10-K Item 7: 196,374 chars extracted
+2026-06-25 17:51:03,704 [INFO] fetch_edgar:   Saved: data/normalized/tile/10-k_item_7_2025.md
+2026-06-25 17:51:05,713 [INFO] fetch_edgar: ── ECL ──────────────────────────
+2026-06-25 17:51:05,903 [INFO] fetch_edgar: CIK: 0000031462
+2026-06-25 17:51:06,253 [INFO] fetch_edgar: Found 1 10-K filing(s)
+2026-06-25 17:51:06,384 [INFO] fetch_edgar:   Processing fiscal year 2025
+2026-06-25 17:51:08,143 [INFO] fetch_edgar:   10-K Item 1: 368,769 chars extracted
+2026-06-25 17:51:08,145 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_1_2025.md
+2026-06-25 17:51:09,007 [INFO] fetch_edgar:   10-K Item 7: 428,044 chars extracted
+2026-06-25 17:51:09,011 [INFO] fetch_edgar:   Saved: data/normalized/ecl/10-k_item_7_2025.md

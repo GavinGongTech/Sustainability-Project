@@ -1,0 +1,903 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Pipeline Configuration
+# Project: Using AI in Design to Improve Product Sustainability
+# NYU CSB Research Grant 2026
+#
+# Edit this file to control what gets fetched.
+# All scripts read from here — changing a value here affects the whole pipeline.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Your identity — REQUIRED for SEC EDGAR ────────────────────────────────────
+# SEC enforces this. Every request must include your name and email in the
+# User-Agent header or you will be blocked.
+user:
+  name: "Gavin Gong"
+  email: "gyg2009@nyu.edu"
+
+# ── Rate limiting ──────────────────────────────────────────────────────────────
+# SEC allows up to 10 requests/second. Stay at 8 to be safe.
+# general_delay is the pause between scraping non-EDGAR sites (startup pages,
+# ESG reports, IR pages). Be polite — 1.5s minimum.
+rate_limits:
+  sec_requests_per_second: 8
+  general_delay_seconds: 1.5
+  max_retries: 3
+  backoff_factor: 2            # exponential backoff: waits 1s, 2s, 4s on retries
+
+# ── Output paths ───────────────────────────────────────────────────────────────
+paths:
+  raw:        data/raw          # untouched fetched content
+  normalized: data/normalized   # cleaned markdown files (one per source)
+  index:      data/index        # master_index.csv and company list CSVs
+  logs:       logs              # one log file per script
+
+# ── Exchanges to include for public US companies ───────────────────────────────
+exchanges:
+  - NYSE
+  - NASDAQ
+  - AMEX
+
+# ══════════════════════════════════════════════════════════════════════════════
+# INDUSTRY TIERS — from the project tier structure document (V1.6, 6.21.26)
+#
+# Tier 1: 19 industries — full compilation + full validation
+# Tier 2:  2 industries — full compilation + partial validation
+# Tier 3:  3 industries — compiled + classified, no validation this phase
+# All Else: not pursued this phase
+#
+# SIC is the primary classification system (governs EDGAR).
+# NAICS is used as a secondary reference where SIC is not granular enough.
+# "Climate Tech" is a research overlay tag, not a separate SIC industry.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── SIC codes by industry ─────────────────────────────────────────────────────
+# Format: industry_label: [list of SIC codes]
+# Labels match the corrected industry names from the nomenclature reconciliation
+# slides (V7, 6.15.26). Erroneous names ("Broader Materials", "Aerospace/Advanced
+# Manufacturing", "Food — Broad Reformulation", etc.) have been removed.
+#
+# build_company_list.py loops through every code here and queries EDGAR.
+
+sic_codes:
+
+  # ── TIER 1 ────────────────────────────────────────────────────────────────
+
+  # SIC 28 — Chemicals & Allied Products
+  # Covers the full division. Plastics at the material/feedstock level sits here.
+  # Finished plastic products manufacturing falls under SIC 30 (see below).
+  chemicals:
+    - 2810   # Industrial Inorganic Chemicals
+    - 2811   # Chlorine & Alkali
+    - 2812   # Alkalies & Chlorine
+    - 2813   # Industrial Gases (anchor for Green Hydrogen)
+    - 2816   # Inorganic Pigments
+    - 2819   # Industrial Inorganic Chemicals NEC
+    - 2820   # Plastics Materials & Synthetic Resins (feedstock level)
+    - 2821   # Plastics Materials, Synthetic Resins & Nonvulcanizable Elastomers
+    - 2822   # Synthetic Rubber
+    - 2823   # Cellulosic Manmade Fibers
+    - 2824   # Synthetic Organic Fibers (excl. cellulosic)
+    - 2830   # Drugs (broad)
+    - 2833   # Pharmaceutical Preparations (active ingredients)
+    - 2840   # Soap, Detergents, Cleaning Preparations
+    - 2841   # Soap & Other Detergents
+    - 2842   # Specialty Cleaning, Polishing, Sanitation Preparations
+    - 2843   # Surface Active Agents, Finishing Agents, Sulfonated Oils
+    - 2844   # Perfumes, Cosmetics & Other Toilet Preparations
+    - 2860   # Industrial Chemicals & Synthetics
+    - 2861   # Gum & Wood Chemicals
+    - 2865   # Cyclic Crudes, Intermediates, Dyes & Organic Pigments
+    - 2869   # Industrial Organic Chemicals NEC
+    - 2870   # Agricultural Chemicals
+    - 2873   # Nitrogenous Fertilizers
+    - 2874   # Phosphatic Fertilizers
+    - 2875   # Fertilizers, Mixing Only
+    - 2879   # Pesticides & Agricultural Chemicals NEC
+    - 2890   # Industrial & Miscellaneous Chemicals
+    - 2891   # Adhesives & Sealants
+    - 2895   # Carbon Black
+    - 2899   # Chemicals & Chemical Preparations NEC
+
+  # SIC 30 — Rubber & Miscellaneous Plastics Products
+  # Finished plastic products manufacturing (not feedstock — that is SIC 28).
+  plastics_finished_products:
+    - 3060   # Gaskets, Packing & Sealing Devices & Rubber & Plastics Hose
+    - 3080   # Miscellaneous Plastics Products
+    - 3081   # Unsupported Plastics Film & Sheet
+    - 3082   # Plastics Plumbing Fixtures
+    - 3083   # Laminated Plastics Plate, Sheet & Profile Shapes
+    - 3084   # Plastics Pipe
+    - 3085   # Plastics Bottles
+    - 3086   # Plastics Foam Products
+    - 3087   # Custom Compounding of Purchased Plastics Resins
+    - 3088   # Plastics Plumbing Fixtures
+    - 3089   # Plastics Products NEC
+
+  # SIC 26 — Paper & Allied Products (paper-based packaging)
+  # SIC 30 codes above also cover plastic-based packaging.
+  # Packaging spans both divisions — treated as a research overlay tag.
+  packaging_paper:
+    - 2650   # Paperboard Containers & Boxes
+    - 2651   # Folding Paperboard Boxes (incl. sanitary)
+    - 2652   # Setup Paperboard Boxes
+    - 2653   # Corrugated & Solid Fiber Boxes
+    - 2655   # Fiber Cans, Tubes, Drums & Similar Products
+    - 2656   # Sanitary Food Containers (excl. folding)
+    - 2657   # Folding Paperboard Boxes (incl. sanitary)
+    - 2670   # Converted Paper & Paperboard Products (excl. containers)
+    - 2671   # Packaging Paper & Plastics Film, Coated & Laminated
+    - 2672   # Coated & Laminated Paper NEC
+    - 2673   # Plastics, Foil & Coated Paper Bags
+    - 2674   # Uncoated Paper & Multiwall Bags
+    - 2675   # Die-Cut Paper & Paperboard & Cardboard
+    - 2676   # Sanitary Paper Products
+    - 2677   # Envelopes
+    - 2678   # Stationery, Tablets & Related Products
+    - 2679   # Converted Paper & Paperboard Products NEC
+
+  # SIC 32 — Stone, Clay, Glass & Concrete Products
+  # Covers all of Construction Materials as one complete category.
+  # Cement (3241) and Ready-Mixed Concrete (3273) are the primary anchors.
+  # Steel/Metals (SIC 33) handles the metal side of construction materials.
+  construction_materials:
+    - 3210   # Flat Glass
+    - 3211   # Flat Glass
+    - 3220   # Products of Purchased Glass
+    - 3221   # Glass Containers
+    - 3229   # Pressed & Blown Glass & Glassware NEC
+    - 3230   # Products of Purchased Glass
+    - 3241   # Cement, Hydraulic (primary anchor for Cement/Concrete)
+    - 3250   # Structural Clay Products
+    - 3251   # Brick & Structural Clay Tile
+    - 3253   # Ceramic Wall & Floor Tile
+    - 3255   # Clay Refractories
+    - 3259   # Structural Clay Products NEC
+    - 3260   # Pottery & Related Products
+    - 3270   # Concrete, Gypsum & Plaster Products
+    - 3271   # Concrete Block & Brick
+    - 3272   # Concrete Products (excl. block & brick)
+    - 3273   # Ready-Mixed Concrete (primary anchor for Cement/Concrete)
+    - 3274   # Lime
+    - 3275   # Gypsum Products
+    - 3280   # Cut Stone & Stone Products
+    - 3281   # Cut Stone & Stone Products
+    - 3290   # Abrasive, Asbestos & Misc Nonmetallic Mineral Products
+    - 3291   # Abrasive Products
+    - 3292   # Asbestos Products
+    - 3295   # Minerals & Earths, Ground or Otherwise Treated
+    - 3296   # Mineral Wool
+    - 3297   # Nonclay Refractories
+    - 3299   # Nonmetallic Mineral Products NEC
+
+  # SIC 33 — Primary Metal Industries
+  # Steel and iron are the primary priority within this division.
+  # Aluminum, copper, and other metals are secondary but not excluded.
+  steel_metals:
+    - 3310   # Steel Works, Blast Furnaces (incl. coke ovens), Rolling Mills
+    - 3312   # Steel Works, Blast Furnaces & Rolling & Finishing Mills
+    - 3313   # Electrometallurgical Products (excl. steel)
+    - 3315   # Steel Wiredrawing & Steel Nails
+    - 3316   # Cold-Rolled Steel Sheet, Strip & Bars
+    - 3317   # Steel Pipe & Tubes
+    - 3320   # Iron & Steel Foundries
+    - 3321   # Gray & Ductile Iron Foundries
+    - 3322   # Malleable Iron Foundries
+    - 3324   # Steel Investment Foundries
+    - 3325   # Steel Foundries NEC
+    - 3330   # Primary Smelting & Refining of Nonferrous Metals
+    - 3331   # Primary Smelting & Refining of Copper
+    - 3334   # Primary Production of Aluminum
+    - 3339   # Primary Smelting & Refining of Nonferrous Metals NEC
+    - 3340   # Secondary Smelting & Refining of Nonferrous Metals
+    - 3341   # Secondary Smelting & Refining of Nonferrous Metals
+    - 3350   # Rolling, Drawing & Extruding of Nonferrous Metals
+    - 3353   # Aluminum Sheet, Plate & Foil
+    - 3354   # Aluminum Extruded Products
+    - 3355   # Aluminum Rolling & Drawing NEC
+    - 3356   # Rolling, Drawing & Extruding of Nonferrous Metals NEC
+    - 3357   # Drawing & Insulating of Nonferrous Wire
+    - 3360   # Nonferrous Foundries (Castings)
+    - 3363   # Aluminum Die-Castings
+    - 3364   # Nonferrous Die-Castings (excl. aluminum)
+    - 3365   # Aluminum Foundries
+    - 3366   # Copper Foundries
+    - 3369   # Nonferrous Foundries NEC
+    - 3390   # Miscellaneous Primary Metal Products
+    - 3398   # Metal Heat Treating
+    - 3399   # Primary Metal Products NEC
+
+  # SIC 22 — Textile Mill Products
+  textiles:
+    - 2200   # Textile Mill Products (broad)
+    - 2210   # Broadwoven Fabric Mills, Cotton
+    - 2211   # Broadwoven Fabric Mills, Cotton
+    - 2220   # Broadwoven Fabric Mills, Manmade Fiber & Silk
+    - 2221   # Broadwoven Fabric Mills, Manmade Fiber & Silk
+    - 2230   # Broadwoven Fabric Mills, Wool (incl. dyeing & finishing)
+    - 2231   # Broadwoven Fabric Mills, Wool
+    - 2240   # Narrow Fabric & Other Smallware Mills: Cotton, Wool, Silk & Manmade Fiber
+    - 2241   # Narrow Fabric Mills
+    - 2250   # Hosiery
+    - 2251   # Women's Full-Length & Knee-Length Hosiery (excl. socks)
+    - 2252   # Hosiery NEC
+    - 2260   # Dyeing & Finishing Textiles (excl. wool fabrics & knit goods)
+    - 2261   # Finishing Plants, Cotton
+    - 2262   # Finishing Plants, Manmade
+    - 2269   # Finishing Plants NEC
+    - 2270   # Carpets & Rugs
+    - 2273   # Carpets & Rugs
+    - 2280   # Yarn & Thread Mills
+    - 2281   # Yarn Throwing & Winding Mills
+    - 2282   # Yarn Texturizing, Throwing, Twisting & Winding Mills
+    - 2284   # Thread Mills
+    - 2290   # Miscellaneous Textile Goods
+    - 2295   # Coated Fabrics (not rubberized)
+    - 2296   # Tire Cord & Fabrics
+    - 2297   # Nonwoven Fabrics
+    - 2298   # Cordage & Twine
+    - 2299   # Textile Goods NEC
+
+  # SIC 23 — Apparel & Other Finished Products Made from Fabrics & Similar Materials
+  # Adjacent to Textiles (SIC 22) but a distinct major group per the nomenclature
+  # reconciliation. Apparel is NOT Consumer Durables — that error is corrected.
+  apparel:
+    - 2300   # Apparel & Other Finished Products Made from Fabrics (broad)
+    - 2311   # Men's & Boys' Suits, Coats & Overcoats
+    - 2320   # Men's & Boys' Furnishings, Work Clothing
+    - 2321   # Men's & Boys' Separate Trousers & Slacks
+    - 2322   # Men's & Boys' Underwear & Nightwear
+    - 2323   # Men's & Boys' Neckwear
+    - 2325   # Trousers & Slacks
+    - 2326   # Men's & Boys' Work Clothing
+    - 2329   # Men's & Boys' Clothing NEC
+    - 2330   # Women's, Misses' & Juniors' Outerwear
+    - 2335   # Women's, Juniors' & Misses' Dresses
+    - 2340   # Children's Outerwear
+    - 2361   # Girls', Children's & Infants' Dresses, Blouses
+    - 2369   # Girls', Children's & Infants' Outerwear NEC
+    - 2380   # Miscellaneous Apparel & Accessories
+    - 2381   # Dress & Work Gloves
+    - 2384   # Robes & Dressing Gowns
+    - 2385   # Waterproof Outerwear
+    - 2386   # Leather & Sheep-Lined Clothing
+    - 2387   # Apparel Belts
+    - 2389   # Apparel & Accessories NEC
+    - 2390   # Misc Fabricated Textile Products
+    - 2391   # Curtains & Draperies
+    - 2392   # House Furnishings (excl. curtains & draperies)
+    - 2393   # Textile Bags
+    - 2394   # Canvas & Related Products
+    - 2395   # Pleating, Decorative & Novelty Stitching & Tucking for the Trade
+    - 2396   # Automotive Trimmings, Apparel Findings & Related Products
+    - 2397   # Schiffli Machine Embroideries
+    - 2399   # Fabricated Textile Products NEC
+
+  # SIC 20 — Food & Kindred Products
+  # Returns to plain SIC name per nomenclature correction.
+  # "Food — Broad Reformulation" and "Food — Seeds/Agriculture Inputs"
+  # subcategory names were LLM-introduced errors and are removed.
+  food:
+    - 2000   # Food & Kindred Products (broad)
+    - 2010   # Meat Packing Plants & Prepared Meats & Poultry
+    - 2011   # Meat Packing Plants
+    - 2013   # Sausages & Other Prepared Meats
+    - 2015   # Poultry Slaughtering & Processing
+    - 2020   # Dairy Products
+    - 2021   # Creamery Butter
+    - 2022   # Natural, Processed & Imitation Cheese
+    - 2023   # Dry, Condensed & Evaporated Products
+    - 2024   # Ice Cream & Frozen Desserts
+    - 2026   # Fluid Milk
+    - 2030   # Canned, Frozen & Preserved Fruit, Veg & Food Specialties
+    - 2032   # Canned Specialties
+    - 2033   # Canned Fruits, Vegetables, Preserves, Jams & Jellies
+    - 2034   # Dried & Dehydrated Fruits, Vegetables & Soup Mixes
+    - 2035   # Pickled Fruits & Vegetables, Vegetable Sauces & Seasonings
+    - 2037   # Frozen Fruits, Fruit Juices & Vegetables
+    - 2038   # Frozen Specialties NEC
+    - 2040   # Grain Mill Products
+    - 2041   # Flour & Other Grain Mill Products
+    - 2043   # Cereal Breakfast Foods
+    - 2044   # Rice Milling
+    - 2045   # Prepared Flour Mixes & Doughs
+    - 2046   # Wet Corn Milling
+    - 2047   # Dog & Cat Food
+    - 2048   # Prepared Feeds & Feed Ingredients for Animals & Fowls NEC
+    - 2050   # Bakery Products
+    - 2051   # Bread & Other Bakery Products (excl. cookies & crackers)
+    - 2052   # Cookies & Crackers
+    - 2053   # Frozen Bakery Products (excl. bread)
+    - 2060   # Sugar & Confectionery Products
+    - 2061   # Cane Sugar (excl. refining)
+    - 2062   # Cane Sugar Refining
+    - 2063   # Beet Sugar
+    - 2064   # Candy & Other Confectionery Products
+    - 2066   # Chocolate & Cocoa Products
+    - 2067   # Chewing Gum
+    - 2068   # Salted & Roasted Nuts & Seeds
+    - 2070   # Fats & Oils
+    - 2074   # Cottonseed Oil Mills
+    - 2075   # Soybean Oil Mills
+    - 2076   # Vegetable Oil Mills (excl. corn, cottonseed & soybean)
+    - 2077   # Animal & Marine Fats & Oils
+    - 2079   # Shortening, Table Oils, Margarine & Other Edible Fats & Oils NEC
+    - 2080   # Beverages
+    - 2082   # Malt Beverages
+    - 2083   # Malt
+    - 2084   # Wines, Brandy & Brandy Spirits
+    - 2085   # Distilled & Blended Liquors
+    - 2086   # Bottled & Canned Soft Drinks & Carbonated Waters
+    - 2087   # Flavoring Extracts & Flavoring Syrups NEC
+    - 2090   # Miscellaneous Food Preparations & Kindred Products
+    - 2091   # Canned & Cured Fish & Seafoods
+    - 2092   # Prepared Fresh or Frozen Fish & Seafoods
+    - 2095   # Roasted Coffee
+    - 2096   # Potato Chips, Pretzels & Similar Snacks
+    - 2097   # Manufactured Ice
+    - 2098   # Macaroni, Spaghetti, Vermicelli & Noodles
+    - 2099   # Food Preparations NEC
+
+  # SIC 01 — Agricultural Production Crops
+  # Returns to plain SIC name per nomenclature correction.
+  # "Food — Seeds/Agriculture Inputs" was an LLM-introduced subcategory error.
+  agriculture:
+    - 100    # Crops (broad)
+    - 110    # Cash Grains
+    - 111    # Wheat
+    - 112    # Rice
+    - 115    # Corn
+    - 116    # Soybeans
+    - 119    # Cash Grains NEC
+    - 130    # Field Crops (excl. cash grains)
+    - 131    # Cotton
+    - 132    # Tobacco
+    - 133    # Sugarcane & Sugar Beets
+    - 134    # Irish Potatoes
+    - 139    # Field Crops (excl. cash grains) NEC
+    - 160    # Vegetables & Melons
+    - 161    # Vegetables & Melons
+    - 170    # Fruits & Tree Nuts
+    - 171    # Berry Crops
+    - 172    # Grapes
+    - 173    # Tree Nuts
+    - 174    # Citrus Fruits
+    - 175    # Deciduous Tree Fruits
+    - 179    # Fruits & Tree Nuts NEC
+    - 180    # Horticultural Specialties
+    - 181    # Flower, Nursery Stock & Florists' Supplies
+    - 182    # Food Crops Grown Under Cover
+    - 189    # Horticultural Specialties NEC
+    - 190    # General Farms, Primarily Crop
+    - 191    # General Farms, Primarily Crop
+
+  # SIC 37 — Transportation Equipment
+  # Focuses on manufacturing of transportation vehicles.
+  # Excludes transportation services (airlines, Amtrak, MTA, ferry — no physical product).
+  # SIC 372 (Aircraft & Parts) is the anchor for Aerospace/Aircraft & Parts,
+  # which is a sub-group of Transportation, not a separate category.
+  transportation:
+    - 3710   # Motor Vehicles & Motor Vehicle Equipment
+    - 3711   # Motor Vehicles & Passenger Car Bodies
+    - 3713   # Truck Trailers
+    - 3714   # Motor Vehicle Parts & Accessories
+    - 3715   # Truck Trailers
+    - 3716   # Motor Homes
+    - 3720   # Aircraft & Parts
+    - 3721   # Aircraft
+    - 3724   # Aircraft Engine & Engine Parts
+    - 3728   # Aircraft Parts & Auxiliary Equipment NEC
+    - 3730   # Ship & Boat Building & Repairing
+    - 3731   # Ship Building & Repairing
+    - 3732   # Boat Building & Repairing
+    - 3740   # Railroad Equipment
+    - 3743   # Railroad Equipment
+    - 3750   # Motorcycles, Bicycles & Parts
+    - 3751   # Bicycles & Parts
+    - 3760   # Guided Missiles & Space Vehicles
+    - 3761   # Guided Missiles & Space Vehicles
+    - 3764   # Guided Missiles & Space Vehicle Propulsion Units & Parts
+    - 3769   # Guided Missiles & Space Vehicle Parts & Auxiliary Equipment NEC
+    - 3790   # Miscellaneous Transportation Equipment
+    - 3792   # Travel Trailers & Campers
+    - 3795   # Tanks & Tank Components
+    - 3799   # Transportation Equipment NEC
+
+  # SIC 2834/2836 — Pharmaceutical Preparations & Biological Products
+  # TIER 2. Full compilation, partial validation.
+  pharmaceuticals:
+    - 2830   # Drugs (broad)
+    - 2833   # Pharmaceutical Preparations (active ingredients)
+    - 2834   # Pharmaceutical Preparations
+    - 2835   # In Vitro & In Vivo Diagnostic Substances
+    - 2836   # Biological Products (excl. diagnostic substances)
+
+  # SIC 25 — Furniture & Fixtures
+  # TIER 2. Correct name per nomenclature reconciliation — "Consumer Durables"
+  # maps to this. The prior conflation of Apparel with Consumer Durables was an error.
+  consumer_durables_furniture:
+    - 2510   # Household Furniture
+    - 2511   # Wood Household Furniture (excl. upholstered)
+    - 2512   # Upholstered Household Furniture
+    - 2514   # Metal Household Furniture
+    - 2515   # Mattresses & Bedsprings
+    - 2517   # Wood TV, Radio, Phonograph & Sewing Machine Cabinets
+    - 2519   # Household Furniture NEC
+    - 2520   # Office Furniture
+    - 2521   # Wood Office Furniture
+    - 2522   # Office Furniture (excl. wood)
+    - 2530   # Public Building & Related Furniture
+    - 2531   # Public Building & Related Furniture
+    - 2540   # Partitions, Shelving, Lockers & Office & Store Fixtures
+    - 2541   # Wood Office & Store Fixtures, Partitions, Shelving & Lockers
+    - 2590   # Miscellaneous Furniture & Fixtures
+    - 2591   # Drapery Hardware & Window Blinds & Shades
+    - 2599   # Furniture & Fixtures NEC
+
+  # SIC 3674 — Semiconductors / Electronics
+  # TIER 3. Compiled and classified; no validation this phase.
+  electronics_semiconductors:
+    - 3670   # Electronic & Other Electrical Equipment (excl. computer equipment)
+    - 3672   # Printed Circuit Boards
+    - 3674   # Semiconductors & Related Devices
+    - 3675   # Electronic Capacitors
+    - 3676   # Electronic Resistors
+    - 3677   # Electronic Coils, Transformers & Other Inductors
+    - 3678   # Electronic Connectors
+    - 3679   # Electronic Components NEC
+    - 3669   # Communications Equipment NEC
+    - 3699   # Electronic & Other Electrical Industrial Apparatus NEC
+
+  # ── CLIMATE TECH CLUSTERS ─────────────────────────────────────────────────
+  # These are research overlay tags, not standalone SIC categories.
+  # Each cluster spans multiple SIC codes because the underlying activity
+  # (e.g. wind power) includes both equipment manufacturing and energy generation,
+  # which sit in different parts of the SIC system.
+  # Following UK government precedent: these are "frontier industries" that
+  # "cannot be easily represented" by a single SIC code.
+  # Applied as a tag layered on top of the real SIC classification.
+
+  # Batteries / Energy Storage
+  # Real, codeable manufacturing activity. Climate Tech tag applied as overlay
+  # since not every battery manufacturer is sustainability-focused.
+  batteries_energy_storage:
+    - 3691   # Storage Batteries
+    - 3692   # Primary Batteries, Dry & Wet
+    - 3699   # Electronic & Other Electrical Industrial Apparatus NEC
+
+  # Solar / Photovoltaics
+  # Spans manufacturing (SIC 3674 — PV cells are semiconductors) and
+  # utility generation (SIC 4911). Consistent with UK frontier industry precedent.
+  solar_photovoltaics:
+    - 3674   # Semiconductors & Related Devices (PV cells)
+    - 3559   # Special Industry Machinery NEC (solar manufacturing equipment)
+    - 4911   # Electric Services (solar generation utilities)
+    - 4931   # Electric & Other Services Combined
+    - 4939   # Combination Electric & Gas & Other Utility Services NEC
+
+  # Wind Energy
+  # Spans turbine/equipment manufacturing and electric services generation.
+  wind_energy:
+    - 3511   # Steam, Gas & Hydraulic Turbines & Turbine Generator Sets
+    - 3559   # Special Industry Machinery NEC (wind manufacturing equipment)
+    - 3679   # Electronic Components NEC (wind control systems)
+    - 4911   # Electric Services (wind generation utilities)
+    - 4931   # Electric & Other Services Combined
+
+  # Green Hydrogen
+  # SIC 2813 (Industrial Gases) is the real SIC anchor.
+  # "Green" production method is a research-scope qualifier within this code.
+  green_hydrogen:
+    - 2813   # Industrial Gases
+    - 3559   # Special Industry Machinery NEC (electrolyzers)
+    - 3825   # Instruments for Measuring
+
+  # Cosmetics / Personal Care
+  # SIC 2844 is the exact match. "Cosmetics" is colloquial but widely understood.
+  cosmetics_personal_care:
+    - 2844   # Perfumes, Cosmetics & Other Toilet Preparations
+    - 2842   # Specialty Cleaning, Polishing & Sanitation Preparations
+
+# ── NAICS codes (supplementary) ───────────────────────────────────────────────
+# Used where SIC is not granular enough to distinguish what we care about.
+# Nuclear fission has a clean NAICS home; no SIC equivalent exists.
+# Carbon Removal / CCU and Nuclear Fusion have no clean SIC or NAICS home —
+# confirmed as "frontier industries" with no single classification code.
+# They are retained as research-defined tags only.
+
+naics_codes:
+
+  # Nuclear (fission) — clean single-code NAICS home
+  nuclear_fission:
+    - 221113  # Nuclear Electric Power Generation
+
+  # Advanced materials — supplementary granularity within SIC 28/30
+  advanced_materials:
+    - 325211  # Plastics Material & Resin Manufacturing
+    - 325220  # Artificial & Synthetic Fibers & Filaments Manufacturing
+    - 327910  # Abrasive Product Manufacturing
+    - 325180  # Other Basic Inorganic Chemical Manufacturing
+    - 325190  # Other Basic Organic Chemical Manufacturing
+    - 325412  # Pharmaceutical Preparation Manufacturing
+    - 325413  # In-Vitro Diagnostic Substance Manufacturing
+
+  # Agrifood tech — supplementary within SIC 01 and SIC 20
+  agrifood_tech:
+    - 111998  # All Other Miscellaneous Crop Farming
+    - 112990  # All Other Animal Production
+    - 311999  # All Other Miscellaneous Food Manufacturing
+    - 311211  # Flour Milling
+    - 311221  # Wet Corn Milling
+    - 311230  # Breakfast Cereal Manufacturing
+
+# ── Research overlay tags (no SIC/NAICS home) ────────────────────────────────
+# These categories are confirmed to have no clean classification code in any
+# standard system. They are retained as research-defined tags layered on top
+# of real company SIC codes — never used as standalone industry names.
+# Source: industry nomenclature reconciliation slides (V7, 6.15.26) and
+# UK government Industrial Strategy confirmation.
+
+research_overlay_tags:
+  - packaging           # spans SIC 26 (paper) and SIC 30 (plastic) — tag only
+  - climate_tech        # applied across all climate tech clusters above
+  - carbon_removal_ccu  # no SIC/NAICS home; frontier industry tag only
+  - nuclear_fusion      # no SIC/NAICS home; pre-commercial R&D; tag only
+
+# ── Tier structure reference ──────────────────────────────────────────────────
+# Source: tiered approach document (V1.6, 6.21.26)
+# This section is metadata only — not read by any script.
+# Included here so the config is a single source of truth for the project.
+
+tier_structure:
+  tier_1:
+    description: "Full compilation + full validation. 19 industries."
+    industries:
+      - chemicals
+      - plastics_finished_products
+      - packaging_paper          # + plastic packaging overlay via plastics codes
+      - construction_materials
+      - steel_metals
+      - textiles
+      - apparel
+      - food
+      - agriculture
+      - cosmetics_personal_care
+      - batteries_energy_storage
+      - solar_photovoltaics
+      - wind_energy
+      - green_hydrogen
+      - nuclear_fission           # NAICS 221113
+      - carbon_removal_ccu        # tag only — no SIC anchor
+      - nuclear_fusion            # tag only — no SIC anchor
+      - transportation            # includes aerospace (SIC 372 sub-group)
+      - construction_materials    # cement + steel + full SIC 32
+
+  tier_2:
+    description: "Full compilation + partial validation. 2 industries."
+    industries:
+      - pharmaceuticals
+      - consumer_durables_furniture
+
+  tier_3:
+    description: >
+      Compiled and classified; no validation this phase. Absence of validation
+      reflects resource limits, not lack of expected signal.
+    industries:
+      - electronics_semiconductors
+      # footwear: no dedicated SIC block in config yet — add when building list
+      # furniture/home goods: overlaps consumer_durables_furniture above
+
+  all_else:
+    description: >
+      Not pursued this phase. Explicitly out of scope — not silently omitted.
+    industries:
+      - paper_pulp_non_packaging
+      - medical_devices
+      - toys_games
+      - telecommunications_equipment
+      - industrial_heavy_machinery
+      - computers_peripherals
+      - household_appliances
+      - sporting_goods
+      - musical_instruments
+      - glass_non_construction
+      - jewelry
+      - leather_goods_non_footwear
+      - printing_publishing
+      - tobacco_products
+    excluded:
+      - mining_extraction   # upstream raw-material activity, not product design
+
+# ── Test pull targets (Week 2) ────────────────────────────────────────────────
+# Small hand-picked set to exercise each pipeline code path.
+# Chosen to cover: different industries, different source types, both segments.
+# These are NOT discovered by the pipeline — they are manually specified here.
+# Replace with full company lists (built by build_company_list.py) for Week 4.
+
+test_companies:
+  us_public:
+    - name: "Interface Inc"
+      ticker: "TILE"
+      sic: 2281
+      tier: 1
+      industry: textiles
+      notes: "carpet tile manufacturer, strong sustainability narrative, Mission Zero"
+    - name: "Ecolab Inc"
+      ticker: "ECL"
+      sic: 2840
+      tier: 1
+      industry: chemicals
+      notes: "cleaning/water treatment chemicals, ESG leader"
+
+  non_us_public:
+    - name: "Signify NV"
+      ticker: "LIGHT"
+      exchange: "Euronext Amsterdam"
+      notes: "LED/lighting sustainability, files 20-F on EDGAR"
+    - name: "Neste Oyj"
+      ticker: "NESTE"
+      exchange: "Nasdaq Helsinki"
+      notes: "renewable fuels, very strong ESG reports"
+
+  startups:
+    - name: "Solugen"
+      url: "https://solugen.com"
+      tier: 1
+      industry: chemicals
+      vc_source: "Third Derivative"
+      notes: "AI-designed enzymes + ML-controlled Bioforge plants; Use Case 12"
+    - name: "Twelve"
+      url: "https://twelve.co"
+      tier: 1
+      industry: chemicals
+      vc_source: "Breakthrough Energy Ventures"
+      notes: "CO2-to-materials; electrochemical conversion"
+    - name: "Redwood Materials"
+      url: "https://www.redwoodmaterials.com"
+      tier: 1
+      industry: batteries_energy_storage
+      notes: "battery recycling circularity; Use Case 4 golden dataset"
+    - name: "Pivot Bio"
+      url: "https://www.pivotbio.com"
+      tier: 1
+      industry: agriculture
+      notes: "nitrogen-fixing microbiome, replacing synthetic fertilizers; Use Case 9"
+
+# ── Source types and priority ─────────────────────────────────────────────────
+# Lists what to fetch per segment, in priority order.
+# Primary sources are fetched first; lower-priority sources fill gaps.
+
+source_priority:
+  us_public:
+    - "10-K Item 1"       # primary — EDGAR
+    - "10-K Item 7"       # secondary — EDGAR
+    - "ESG report"        # IR page
+    - "IR presentation"   # capital markets day + results decks
+    - "patent"            # Google Patents
+    - "press release"     # company site
+    - "engineering blog"  # company site
+    - "white paper"       # company site
+
+  non_us_public:
+    - "annual report"     # primary
+    - "20-F"              # EDGAR (for US-listed foreign issuers)
+    - "40-F"              # EDGAR (Canadian issuers)
+    - "ESG report"
+    - "IR presentation"
+    - "exchange filing"   # LSE RNS, Euronext, EDINET, HKEXnews, etc.
+    - "patent"
+    - "press release"
+
+  startup:
+    - "product page"
+    - "engineering blog"
+    - "press release"
+    - "white paper"
+    - "patent"
+    - "founder interview"
+
+# ── VC / accelerator portfolio pages (Week 3 startup discovery) ───────────────
+# crawl_vc_portfolios.py visits each URL to extract portfolio company names.
+# All firms from the data compilation plan section 5 are included.
+# URLs should be the stable portfolio/cohort page — verify before running.
+
+vc_portfolio_urls:
+
+  # Climate generalist and multi-stage VCs
+  - name: "Breakthrough Energy Ventures"
+    url: "https://breakthroughenergy.org/investing/bev/"
+    focus: "climate generalist"
+  - name: "Lowercarbon Capital"
+    url: "https://lowercarboncapital.com/companies/"
+    focus: "climate generalist"
+  - name: "Energy Impact Partners"
+    url: "https://www.energyimpactpartners.com/portfolio/"
+    focus: "climate generalist"
+  - name: "Prelude Ventures"
+    url: "https://www.preludeventures.com/portfolio"
+    focus: "climate generalist"
+  - name: "Congruent Ventures"
+    url: "https://congruentvc.com/portfolio"
+    focus: "climate generalist"
+  - name: "Khosla Ventures"
+    url: "https://www.khoslaventures.com/portfolio"
+    focus: "climate generalist"
+  - name: "Lux Capital"
+    url: "https://luxcapital.com/companies"
+    focus: "deep tech"
+  - name: "The Engine Ventures"
+    url: "https://www.engine.xyz/portfolio"
+    focus: "deep tech / hard tech"
+  - name: "TPG Rise Climate"
+    url: "https://www.tpg.com/strategies/rise-climate"
+    focus: "climate generalist"
+  - name: "Galvanize Climate Solutions"
+    url: "https://galvanize.com/portfolio"
+    focus: "climate generalist"
+  - name: "G2 Venture Partners"
+    url: "https://www.g2vp.com/portfolio"
+    focus: "climate generalist"
+  - name: "Clean Energy Ventures"
+    url: "https://cleanenergyventures.com/portfolio/"
+    focus: "climate generalist"
+  - name: "At One Ventures"
+    url: "https://www.atoneventures.com/portfolio"
+    focus: "climate generalist"
+  - name: "MCJ Collective"
+    url: "https://www.mcjcollective.com/our-work/portfolio"
+    focus: "climate generalist"
+  - name: "Trucks Venture Capital"
+    url: "https://www.trucks.vc/portfolio"
+    focus: "climate / mobility"
+  - name: "Earthshot Ventures"
+    url: "https://www.earthshotventures.com/portfolio"
+    focus: "climate generalist"
+  - name: "Powerhouse Ventures"
+    url: "https://www.powerhouse.fund/portfolio"
+    focus: "climate / energy"
+
+  # Deep tech, materials, and chemicals
+  - name: "DCVC"
+    url: "https://www.dcvc.com/companies"
+    focus: "deep tech / materials"
+  - name: "Eclipse Ventures"
+    url: "https://eclipse.vc/portfolio/"
+    focus: "deep tech / industrials"
+  - name: "Material Impact"
+    url: "https://www.materialimpact.com/portfolio"
+    focus: "materials"
+  - name: "Fine Structure Ventures"
+    url: "https://finestructure.vc/portfolio"
+    focus: "deep tech / materials"
+
+  # Food, agriculture, and agrifood tech
+  - name: "S2G Ventures"
+    url: "https://www.s2ginvestments.com/portfolio"  # was s2gventures.com
+    focus: "food / agriculture"
+  - name: "AgFunder"
+    url: "https://agfunder.com/portfolio/"
+    focus: "agrifood"
+  - name: "Astanor Ventures"
+    url: "https://astanor.com/portfolio/"
+    focus: "agrifood"
+  - name: "Cultivian Sandbox Ventures"
+    url: "https://cultiviansbx.com/portfolio/"
+    focus: "agriculture"
+  - name: "Blue Horizon"
+    url: "https://www.bluehorizon.com/portfolio"
+    focus: "food / alternative protein"
+  - name: "Supply Change Capital"
+    url: "https://www.supplychange.fund/portfolio"
+    focus: "food / supply chain"
+  - name: "Big Idea Ventures"
+    url: "https://bigideaventures.com/portfolio/"
+    focus: "alternative protein"
+  - name: "Fall Line Capital"
+    url: "https://www.falllinecapital.com/portfolio"
+    focus: "agriculture"
+
+  # Biotech and industrial bio
+  - name: "SOSV IndieBio"
+    url: "https://sosv.com/portfolio"
+    focus: "biotech / industrial bio"
+  - name: "Fifty Years"
+    url: "https://www.fifty.vc/portfolio"
+    focus: "biotech / deep tech"
+  - name: "Refactor Capital"
+    url: "https://refactor.com/portfolio"
+    focus: "biotech / bio-materials"
+
+  # Europe and international climate funds
+  - name: "World Fund"
+    url: "https://worldfund.vc/portfolio"
+    focus: "European climate"
+  - name: "Planet A Ventures"
+    url: "https://www.planet-a.com/portfolio"
+    focus: "European climate"
+  - name: "Extantia Capital"
+    url: "https://www.extantia.com/portfolio"
+    focus: "European climate"
+  - name: "Pale Blue Dot"
+    url: "https://www.paleblue.vc/portfolio"
+    focus: "European climate"
+  - name: "Climentum Capital"
+    url: "https://climentum.com/portfolio"
+    focus: "Nordic climate"
+  - name: "Contrarian Ventures"
+    url: "https://cventures.vc/portfolio"
+    focus: "European climate"
+  - name: "Norrsken VC"
+    url: "https://www.norrsken.org/portfolio"
+    focus: "Nordic impact"
+  - name: "2150"
+    url: "https://2150.vc/portfolio"
+    focus: "European deep tech / climate"
+  - name: "Kiko Ventures"
+    url: "https://www.kikoventures.com/portfolio"
+    focus: "European climate"
+  - name: "Systemiq Capital"
+    url: "https://www.systemiq.earth/portfolio"
+    focus: "European climate / systems"
+  - name: "Future Positive Capital"
+    url: "https://www.futurepositive.vc/portfolio"
+    focus: "European deep tech"
+  - name: "Prima Materia"
+    url: "https://primamateria.vc/portfolio"
+    focus: "European materials"
+  - name: "Speedinvest"
+    url: "https://speedinvest.com/portfolio"
+    focus: "European early stage"
+
+  # Corporate venture arms
+  - name: "GM Ventures"
+    url: "https://www.gmventures.com/portfolio"
+    focus: "mobility / energy"
+  - name: "Leaps by Bayer"
+    url: "https://leaps.bayer.com/investments"
+    focus: "biotech / agriculture"
+  - name: "Shell Ventures"
+    url: "https://www.shell.com/energy-and-innovation/new-energies/shell-ventures.html"
+    focus: "energy transition"
+  - name: "Amazon Climate Pledge Fund"
+    url: "https://www.amazon.com/b?node=22563201011"
+    focus: "climate / logistics"
+  - name: "Microsoft Climate Innovation Fund"
+    url: "https://www.microsoft.com/en-us/corporate-responsibility/sustainability/climate-innovation-fund"
+    focus: "climate tech"
+
+  # Accelerators, incubators, and lab-embedded programs
+  - name: "Third Derivative"
+    url: "https://third-derivative.org/cohort"
+    focus: "climate deep tech accelerator"
+  - name: "Greentown Labs"
+    url: "https://greentownlabs.com/members/"
+    focus: "climate tech incubator"
+  - name: "New Energy Nexus"
+    url: "https://www.newenergynexus.com/portfolio/"
+    focus: "clean energy accelerator"
+  - name: "Y Combinator Climate"
+    url: "https://www.ycombinator.com/companies?batch=&tags=climate"
+    focus: "YC climate cohort"
+  - name: "Techstars Sustainability"
+    url: "https://www.techstars.com/portfolio"
+    focus: "sustainability accelerator"
+  - name: "Plug and Play"
+    url: "https://www.plugandplaytechcenter.com/portfolio/"
+    focus: "multi-sector accelerator"
+  - name: "Carbon13"
+    url: "https://carbon13.vc/portfolio"
+    focus: "European climate accelerator"
+  - name: "Elemental Impact"
+    url: "https://elementalexcelerator.com/portfolio/"
+    focus: "climate accelerator"
+  - name: "Urban Future Lab"
+    url: "https://ufl.nyc/portfolio"
+    focus: "NYU Tandon / ACRE / C2V"
+  - name: "Cyclotron Road (Activate)"
+    url: "https://www.activate.org/fellows"
+    focus: "DOE LEEP / Lawrence Berkeley"
+  - name: "Chain Reaction Innovations"
+    url: "https://chainreaction.anl.gov/fellows/"
+    focus: "DOE LEEP / Argonne"
+  - name: "Innovation Crossroads"
+    url: "https://innovationcrossroads.ornl.gov/cohort"
+    focus: "DOE LEEP / Oak Ridge"

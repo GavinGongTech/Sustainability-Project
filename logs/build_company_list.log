@@ -1,0 +1,74 @@
+2026-06-25 02:53:05,000 [INFO] build_company_list: Building company list for 2 SIC codes
+2026-06-25 02:53:05,000 [INFO] build_company_list: Target exchanges: ['NYSE', 'NASDAQ', 'AMEX']
+2026-06-25 02:53:05,253 [INFO] build_company_list: SIC 2844: 0 companies found on EDGAR
+2026-06-25 02:53:05,396 [INFO] build_company_list: SIC 2840: 0 companies found on EDGAR
+2026-06-25 02:53:05,397 [INFO] build_company_list: 
+Total EDGAR results: 0
+2026-06-25 02:53:05,397 [INFO] build_company_list: Enriching with ticker/exchange data...
+2026-06-25 02:53:05,397 [INFO] build_company_list: Companies on target exchanges: 0
+2026-06-25 02:53:05,397 [WARNING] build_company_list: No companies found — check SIC codes and exchange filters.
+2026-06-25 22:36:25,153 [INFO] build_company_list: Target SIC codes: 327 codes across 18 industries
+2026-06-25 22:36:25,153 [INFO] build_company_list: Target exchanges: ['NYSE', 'NASDAQ', 'AMEX']
+2026-06-25 22:36:25,153 [INFO] build_company_list: Downloading EDGAR master ticker/exchange file...
+2026-06-25 22:36:25,485 [INFO] build_company_list: Total SEC filers in master file: 10,433
+2026-06-25 22:36:25,490 [INFO] build_company_list: Companies on ['NYSE', 'NASDAQ', 'AMEX']: 7,627
+2026-06-25 22:36:26,497 [INFO] build_company_list: Limiting to first 50 companies for testing
+2026-06-25 22:36:26,498 [INFO] build_company_list: 
+Fetching SIC codes for 50 companies...
+2026-06-25 22:36:26,498 [INFO] build_company_list: This may take a while — one EDGAR request per company.
+
+2026-06-25 22:36:38,051 [INFO] build_company_list: 
+Results:
+2026-06-25 22:36:38,051 [INFO] build_company_list:   Matched target SIC codes: 19
+2026-06-25 22:36:38,052 [INFO] build_company_list:   Failed to fetch:          0
+2026-06-25 22:36:38,052 [INFO] build_company_list:   No SIC match:             31
+2026-06-25 22:36:38,069 [INFO] build_company_list: 
+Saved 19 companies to data/index/public_company_list.csv
+2026-06-25 22:36:38,069 [INFO] build_company_list: 
+Top industries by company count:
+2026-06-25 22:36:38,069 [INFO] build_company_list: industry
+Semiconductors & Related Devices                              8
+Pharmaceutical Preparations                                   6
+Special Industry Machinery, NEC                               2
+Beverages                                                     1
+Motor Vehicles & Passenger Car Bodies                         1
+Soap, Detergents, Cleang Preparations, Perfumes, Cosmetics    1
+2026-06-25 22:43:11,533 [INFO] build_company_list: Target SIC codes: 327 codes across 18 industries
+2026-06-25 22:43:11,536 [INFO] build_company_list: Target exchanges: ['NYSE', 'NASDAQ', 'AMEX']
+2026-06-25 22:43:11,536 [INFO] build_company_list: Downloading EDGAR master ticker/exchange file...
+2026-06-25 22:43:11,699 [INFO] build_company_list: Total SEC filers in master file: 10,433
+2026-06-25 22:43:11,704 [INFO] build_company_list: Companies on ['NYSE', 'NASDAQ', 'AMEX']: 7,627
+2026-06-25 22:43:12,710 [INFO] build_company_list: 
+Fetching SIC codes for 7,627 companies...
+2026-06-25 22:43:12,710 [INFO] build_company_list: This may take a while — one EDGAR request per company.
+
+2026-06-25 23:08:11,502 [INFO] build_company_list: 
+Results:
+2026-06-25 23:08:11,503 [INFO] build_company_list:   Matched target SIC codes: 1,585
+2026-06-25 23:08:11,504 [INFO] build_company_list:   Failed to fetch:          0
+2026-06-25 23:08:11,504 [INFO] build_company_list:   No SIC match:             6,042
+2026-06-25 23:08:11,520 [INFO] build_company_list: 
+Saved 1,585 companies to data/index/public_company_list.csv
+2026-06-25 23:08:11,520 [INFO] build_company_list: 
+Top industries by company count:
+2026-06-25 23:08:11,520 [INFO] build_company_list: industry
+Pharmaceutical Preparations                                 537
+Biological Products, (No Diagnostic Substances)             177
+Semiconductors & Related Devices                            106
+Electric Services                                            97
+Motor Vehicle Parts & Accessories                            39
+Electric & Other Services Combined                           38
+Motor Vehicles & Passenger Car Bodies                        37
+Industrial Organic Chemicals                                 26
+Food and Kindred Products                                    25
+Aircraft                                                     22
+Beverages                                                    22
+Apparel & Other Finishd Prods of  Fabrics & Similar Matl     21
+Perfumes, Cosmetics & Other Toilet Preparations              21
+Medicinal Chemicals & Botanical Products                     20
+In Vitro & In Vivo Diagnostic Substances                     19
+Aircraft Parts & Auxiliary Equipment, NEC                    16
+Communications Equipment, NEC                                15
+Electronic Components, NEC                                   14
+Steel Works, Blast Furnaces & Rolling Mills (Coke Ovens)     14
+Household Furniture                                          13

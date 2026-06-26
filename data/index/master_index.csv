@@ -1,0 +1,9 @@
+company,segment,ticker,industry,source_type,source_year,source_url,file_path,quality_flag
+TILE,public,TILE,,10-K Item 1,2025,https://www.sec.gov/Archives/edgar/data/715787/000071578725000006/tile-20241229.htm,data/normalized/tile/10-k_item_1_2025.md,clean
+TILE,public,TILE,,10-K Item 7,2025,https://www.sec.gov/Archives/edgar/data/715787/000071578725000006/tile-20241229.htm,data/normalized/tile/10-k_item_7_2025.md,clean
+ECL,public,ECL,,10-K Item 1,2025,https://www.sec.gov/Archives/edgar/data/31462/000155837025001263/ecl-20241231x10k.htm,data/normalized/ecl/10-k_item_1_2025.md,clean
+ECL,public,ECL,,10-K Item 7,2025,https://www.sec.gov/Archives/edgar/data/31462/000155837025001263/ecl-20241231x10k.htm,data/normalized/ecl/10-k_item_7_2025.md,clean
+Solugen,startup,,,product page,2026,https://solugen.com,data/normalized/solugen/product_page_2026.md,clean
+Solugen,startup,,,product page,2026,https://solugen.com/technology,data/normalized/solugen/product_page_2026.md,clean
+Twelve,startup,,,product page,2026,https://twelve.co,data/normalized/twelve/product_page_2026.md,clean
+Twelve,startup,,,product page,2026,https://twelve.co/technology,data/normalized/twelve/product_page_2026.md,clean

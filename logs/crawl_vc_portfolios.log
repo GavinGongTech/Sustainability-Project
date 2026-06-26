@@ -1,0 +1,204 @@
+2026-06-25 23:28:40,789 [INFO] crawl_vc_portfolios: 
+Crawling: Lowercarbon Capital
+2026-06-25 23:28:40,789 [INFO] crawl_vc_portfolios:   URL: https://lowercarboncapital.com/companies/
+2026-06-25 23:28:42,603 [INFO] crawl_vc_portfolios:   Found 71 external-domain candidates
+2026-06-25 23:28:42,604 [INFO] crawl_vc_portfolios: 
+Total unique candidates after dedup: 71
+2026-06-25 23:28:42,606 [INFO] crawl_vc_portfolios: Saved 71 candidates to data/index/startup_candidates.csv
+2026-06-25 23:28:42,608 [INFO] crawl_vc_portfolios: 
+First 20 results:
+                                            name                                                url segment           vc_source date_discovered quality_flag
+                               Kickass Companies                 https://lowercarbon.com/companies/ startup Lowercarbon Capital      2026-06-25 needs_review
+                                  Climate Scoops            https://lowercarbon.com/climate-scoops/ startup Lowercarbon Capital      2026-06-25 needs_review
+         Making solar and wind work 24/7. Antora            https://lowercarbon.com/company/antora/ startup Lowercarbon Capital      2026-06-25 needs_review
+     Emissions-slashing compute clusters. Crusoe            https://lowercarbon.com/company/crusoe/ startup Lowercarbon Capital      2026-06-25 needs_review
+        Solarizing Indian rooftops. Solar Square       https://lowercarbon.com/company/solarsquare/ startup Lowercarbon Capital      2026-06-25 needs_review
+ Making chemicals with enzymes, not oil. Solugen           https://lowercarbon.com/company/solugen/ startup Lowercarbon Capital      2026-06-25 needs_review
+          Fully-electric passenger planes. Heart             https://lowercarbon.com/company/heart/ startup Lowercarbon Capital      2026-06-25 needs_review
+    Squeezing more juice from batteries. Breathe           https://lowercarbon.com/company/breathe/ startup Lowercarbon Capital      2026-06-25 needs_review
+                     Zero-carbon cement. Sublime           https://lowercarbon.com/company/sublime/ startup Lowercarbon Capital      2026-06-25 needs_review
+        Clean, fast, cheap lithium mining. Lilac             https://lowercarbon.com/company/lilac/ startup Lowercarbon Capital      2026-06-25 needs_review
+                          Food waste magic. Mill              https://lowercarbon.com/company/mill/ startup Lowercarbon Capital      2026-06-25 needs_review
+          Freight trucking goes electric. Nevoya            https://lowercarbon.com/company/nevoya/ startup Lowercarbon Capital      2026-06-25 needs_review
+   Planet-friendly fertilizer farmers love. Kula              https://lowercarbon.com/company/kula/ startup Lowercarbon Capital      2026-06-25 needs_review
+            Space-based power stations. Overview          https://lowercarbon.com/company/overview/ startup Lowercarbon Capital      2026-06-25 needs_review
+              Ultra-powerful electric boats. Arc               https://lowercarbon.com/company/arc/ startup Lowercarbon Capital      2026-06-25 needs_review
+                Iceberg-saving cold chain. Artyc             https://lowercarbon.com/company/artyc/ startup Lowercarbon Capital      2026-06-25 needs_review
+     Property insurance for climate chaos. Stand             https://lowercarbon.com/company/stand/ startup Lowercarbon Capital      2026-06-25 needs_review
+Giant carbon-sucking vacuums. Carbon Engineering https://lowercarbon.com/company/carbonengineering/ startup Lowercarbon Capital      2026-06-25 needs_review
+            Wind power on a clothesline. Airloom           https://lowercarbon.com/company/airloom/ startup Lowercarbon Capital      2026-06-25 needs_review
+               Turning CO2 into jet fuel. Twelve            https://lowercarbon.com/company/twelve/ startup Lowercarbon Capital      2026-06-25 needs_review
+2026-06-25 23:28:42,608 [INFO] crawl_vc_portfolios: 
+NOTE: All results flagged 'needs_review'.
+2026-06-25 23:28:42,608 [INFO] crawl_vc_portfolios: Scan data/index/startup_candidates.csv and remove junk before using as startup list.
+2026-06-25 23:37:29,623 [INFO] crawl_vc_portfolios: 
+Crawling: Lowercarbon Capital
+2026-06-25 23:37:29,623 [INFO] crawl_vc_portfolios:   URL: https://lowercarboncapital.com/companies/
+2026-06-25 23:37:31,418 [INFO] crawl_vc_portfolios:   Found 71 external-domain candidates
+2026-06-25 23:37:31,421 [INFO] crawl_vc_portfolios: 
+Total unique candidates after dedup: 71
+2026-06-25 23:37:31,423 [INFO] crawl_vc_portfolios: Saved 71 candidates to data/index/startup_candidates.csv
+2026-06-25 23:37:31,425 [INFO] crawl_vc_portfolios: 
+First 20 results:
+                                            name                                                url segment           vc_source date_discovered quality_flag
+                               Kickass Companies                 https://lowercarbon.com/companies/ startup Lowercarbon Capital      2026-06-25 needs_review
+                                  Climate Scoops            https://lowercarbon.com/climate-scoops/ startup Lowercarbon Capital      2026-06-25 needs_review
+         Making solar and wind work 24/7. Antora            https://lowercarbon.com/company/antora/ startup Lowercarbon Capital      2026-06-25 needs_review
+     Emissions-slashing compute clusters. Crusoe            https://lowercarbon.com/company/crusoe/ startup Lowercarbon Capital      2026-06-25 needs_review
+        Solarizing Indian rooftops. Solar Square       https://lowercarbon.com/company/solarsquare/ startup Lowercarbon Capital      2026-06-25 needs_review
+ Making chemicals with enzymes, not oil. Solugen           https://lowercarbon.com/company/solugen/ startup Lowercarbon Capital      2026-06-25 needs_review
+          Fully-electric passenger planes. Heart             https://lowercarbon.com/company/heart/ startup Lowercarbon Capital      2026-06-25 needs_review
+    Squeezing more juice from batteries. Breathe           https://lowercarbon.com/company/breathe/ startup Lowercarbon Capital      2026-06-25 needs_review
+                     Zero-carbon cement. Sublime           https://lowercarbon.com/company/sublime/ startup Lowercarbon Capital      2026-06-25 needs_review
+        Clean, fast, cheap lithium mining. Lilac             https://lowercarbon.com/company/lilac/ startup Lowercarbon Capital      2026-06-25 needs_review
+                          Food waste magic. Mill              https://lowercarbon.com/company/mill/ startup Lowercarbon Capital      2026-06-25 needs_review
+          Freight trucking goes electric. Nevoya            https://lowercarbon.com/company/nevoya/ startup Lowercarbon Capital      2026-06-25 needs_review
+   Planet-friendly fertilizer farmers love. Kula              https://lowercarbon.com/company/kula/ startup Lowercarbon Capital      2026-06-25 needs_review
+            Space-based power stations. Overview          https://lowercarbon.com/company/overview/ startup Lowercarbon Capital      2026-06-25 needs_review
+              Ultra-powerful electric boats. Arc               https://lowercarbon.com/company/arc/ startup Lowercarbon Capital      2026-06-25 needs_review
+                Iceberg-saving cold chain. Artyc             https://lowercarbon.com/company/artyc/ startup Lowercarbon Capital      2026-06-25 needs_review
+     Property insurance for climate chaos. Stand             https://lowercarbon.com/company/stand/ startup Lowercarbon Capital      2026-06-25 needs_review
+Giant carbon-sucking vacuums. Carbon Engineering https://lowercarbon.com/company/carbonengineering/ startup Lowercarbon Capital      2026-06-25 needs_review
+            Wind power on a clothesline. Airloom           https://lowercarbon.com/company/airloom/ startup Lowercarbon Capital      2026-06-25 needs_review
+               Turning CO2 into jet fuel. Twelve            https://lowercarbon.com/company/twelve/ startup Lowercarbon Capital      2026-06-25 needs_review
+2026-06-25 23:37:31,425 [INFO] crawl_vc_portfolios: 
+NOTE: All results flagged 'needs_review'.
+2026-06-25 23:37:31,425 [INFO] crawl_vc_portfolios: Scan data/index/startup_candidates.csv and remove junk before using as startup list.
+2026-06-26 00:09:13,989 [INFO] crawl_vc_portfolios: 
+Crawling: Lowercarbon Capital
+2026-06-26 00:09:13,990 [INFO] crawl_vc_portfolios:   URL: https://lowercarboncapital.com/companies/
+2026-06-26 00:09:15,768 [INFO] crawl_vc_portfolios:   Found 98 external-domain candidates
+2026-06-26 00:09:15,768 [INFO] crawl_vc_portfolios: 
+Total unique candidates after dedup: 98
+2026-06-26 00:09:15,771 [INFO] crawl_vc_portfolios: Saved 98 candidates to data/index/startup_candidates.csv
+2026-06-26 00:09:15,772 [INFO] crawl_vc_portfolios: 
+First 20 results:
+             name                                          url segment           vc_source date_discovered quality_flag
+Kickass Companies           https://lowercarbon.com/companies/ startup Lowercarbon Capital      2026-06-26 needs_review
+   Climate Scoops      https://lowercarbon.com/climate-scoops/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Antora      https://lowercarbon.com/company/antora/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Crux        https://lowercarbon.com/company/crux/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Crusoe      https://lowercarbon.com/company/crusoe/ startup Lowercarbon Capital      2026-06-26 needs_review
+      Panthalassa https://lowercarbon.com/company/panthalassa/ startup Lowercarbon Capital      2026-06-26 needs_review
+     Solar Square https://lowercarbon.com/company/solarsquare/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Solugen     https://lowercarbon.com/company/solugen/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Heart       https://lowercarbon.com/company/heart/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Breathe     https://lowercarbon.com/company/breathe/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Sublime     https://lowercarbon.com/company/sublime/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Charm       https://lowercarbon.com/company/charm/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Lilac       https://lowercarbon.com/company/lilac/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mill        https://lowercarbon.com/company/mill/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Nevoya      https://lowercarbon.com/company/nevoya/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Kula        https://lowercarbon.com/company/kula/ startup Lowercarbon Capital      2026-06-26 needs_review
+         Overview    https://lowercarbon.com/company/overview/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mosa        https://lowercarbon.com/company/mosa/ startup Lowercarbon Capital      2026-06-26 needs_review
+              Arc         https://lowercarbon.com/company/arc/ startup Lowercarbon Capital      2026-06-26 needs_review
+       Base Power  https://lowercarbon.com/company/base-power/ startup Lowercarbon Capital      2026-06-26 needs_review
+2026-06-26 00:09:15,773 [INFO] crawl_vc_portfolios: 
+NOTE: All results flagged 'needs_review'.
+2026-06-26 00:09:15,773 [INFO] crawl_vc_portfolios: Scan data/index/startup_candidates.csv and remove junk before using as startup list.
+2026-06-26 00:17:30,082 [INFO] crawl_vc_portfolios: 
+Crawling: Third Derivative
+2026-06-26 00:17:30,082 [INFO] crawl_vc_portfolios:   URL: https://third-derivative.org/cohort
+2026-06-26 00:17:31,154 [WARNING] crawl_vc_portfolios:   requests failed: 404 Client Error: Not Found for url: https://www.third-derivative.org/cohort
+2026-06-26 00:17:31,155 [INFO] crawl_vc_portfolios:   Content thin or failed — trying Playwright...
+2026-06-26 00:17:33,554 [INFO] crawl_vc_portfolios:   Playwright succeeded
+2026-06-26 00:17:35,077 [INFO] crawl_vc_portfolios:   Found 2 external-domain candidates
+2026-06-26 00:17:35,078 [INFO] crawl_vc_portfolios: 
+Total unique candidates after dedup: 2
+2026-06-26 00:17:35,082 [INFO] crawl_vc_portfolios: Appended to existing file — total rows: 100
+2026-06-26 00:17:35,084 [INFO] crawl_vc_portfolios: 
+First 20 results:
+             name                                          url segment           vc_source date_discovered quality_flag
+Kickass Companies           https://lowercarbon.com/companies/ startup Lowercarbon Capital      2026-06-26 needs_review
+   Climate Scoops      https://lowercarbon.com/climate-scoops/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Antora      https://lowercarbon.com/company/antora/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Crux        https://lowercarbon.com/company/crux/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Crusoe      https://lowercarbon.com/company/crusoe/ startup Lowercarbon Capital      2026-06-26 needs_review
+      Panthalassa https://lowercarbon.com/company/panthalassa/ startup Lowercarbon Capital      2026-06-26 needs_review
+     Solar Square https://lowercarbon.com/company/solarsquare/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Solugen     https://lowercarbon.com/company/solugen/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Heart       https://lowercarbon.com/company/heart/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Breathe     https://lowercarbon.com/company/breathe/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Sublime     https://lowercarbon.com/company/sublime/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Charm       https://lowercarbon.com/company/charm/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Lilac       https://lowercarbon.com/company/lilac/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mill        https://lowercarbon.com/company/mill/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Nevoya      https://lowercarbon.com/company/nevoya/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Kula        https://lowercarbon.com/company/kula/ startup Lowercarbon Capital      2026-06-26 needs_review
+         Overview    https://lowercarbon.com/company/overview/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mosa        https://lowercarbon.com/company/mosa/ startup Lowercarbon Capital      2026-06-26 needs_review
+              Arc         https://lowercarbon.com/company/arc/ startup Lowercarbon Capital      2026-06-26 needs_review
+       Base Power  https://lowercarbon.com/company/base-power/ startup Lowercarbon Capital      2026-06-26 needs_review
+2026-06-26 00:17:35,084 [INFO] crawl_vc_portfolios: 
+NOTE: All results flagged 'needs_review'.
+2026-06-26 00:17:35,084 [INFO] crawl_vc_portfolios: Scan data/index/startup_candidates.csv and remove junk before using as startup list.
+2026-06-26 00:17:35,372 [INFO] crawl_vc_portfolios: 
+Crawling: S2G Ventures
+2026-06-26 00:17:35,372 [INFO] crawl_vc_portfolios:   URL: https://www.s2ginvestments.com/portfolio
+2026-06-26 00:17:38,768 [WARNING] crawl_vc_portfolios:   requests failed: 404 Client Error: Not Found for url: https://www.s2ginvestments.com/portfolio
+2026-06-26 00:17:38,768 [INFO] crawl_vc_portfolios:   Content thin or failed — trying Playwright...
+2026-06-26 00:17:43,618 [INFO] crawl_vc_portfolios:   Playwright succeeded
+2026-06-26 00:17:45,144 [INFO] crawl_vc_portfolios:   Found 3 external-domain candidates
+2026-06-26 00:17:45,144 [INFO] crawl_vc_portfolios: 
+Total unique candidates after dedup: 3
+2026-06-26 00:17:45,148 [INFO] crawl_vc_portfolios: Appended to existing file — total rows: 103
+2026-06-26 00:17:45,150 [INFO] crawl_vc_portfolios: 
+First 20 results:
+             name                                          url segment           vc_source date_discovered quality_flag
+Kickass Companies           https://lowercarbon.com/companies/ startup Lowercarbon Capital      2026-06-26 needs_review
+   Climate Scoops      https://lowercarbon.com/climate-scoops/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Antora      https://lowercarbon.com/company/antora/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Crux        https://lowercarbon.com/company/crux/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Crusoe      https://lowercarbon.com/company/crusoe/ startup Lowercarbon Capital      2026-06-26 needs_review
+      Panthalassa https://lowercarbon.com/company/panthalassa/ startup Lowercarbon Capital      2026-06-26 needs_review
+     Solar Square https://lowercarbon.com/company/solarsquare/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Solugen     https://lowercarbon.com/company/solugen/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Heart       https://lowercarbon.com/company/heart/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Breathe     https://lowercarbon.com/company/breathe/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Sublime     https://lowercarbon.com/company/sublime/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Charm       https://lowercarbon.com/company/charm/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Lilac       https://lowercarbon.com/company/lilac/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mill        https://lowercarbon.com/company/mill/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Nevoya      https://lowercarbon.com/company/nevoya/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Kula        https://lowercarbon.com/company/kula/ startup Lowercarbon Capital      2026-06-26 needs_review
+         Overview    https://lowercarbon.com/company/overview/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mosa        https://lowercarbon.com/company/mosa/ startup Lowercarbon Capital      2026-06-26 needs_review
+              Arc         https://lowercarbon.com/company/arc/ startup Lowercarbon Capital      2026-06-26 needs_review
+       Base Power  https://lowercarbon.com/company/base-power/ startup Lowercarbon Capital      2026-06-26 needs_review
+2026-06-26 00:17:45,150 [INFO] crawl_vc_portfolios: 
+NOTE: All results flagged 'needs_review'.
+2026-06-26 00:17:45,150 [INFO] crawl_vc_portfolios: Scan data/index/startup_candidates.csv and remove junk before using as startup list.
+2026-06-26 00:17:45,435 [INFO] crawl_vc_portfolios: 
+Crawling: Congruent Ventures
+2026-06-26 00:17:45,435 [INFO] crawl_vc_portfolios:   URL: https://congruentvc.com/portfolio
+2026-06-26 00:17:47,278 [INFO] crawl_vc_portfolios:   Found 1 external-domain candidates
+2026-06-26 00:17:47,278 [INFO] crawl_vc_portfolios: 
+Total unique candidates after dedup: 1
+2026-06-26 00:17:47,281 [INFO] crawl_vc_portfolios: Appended to existing file — total rows: 104
+2026-06-26 00:17:47,282 [INFO] crawl_vc_portfolios: 
+First 20 results:
+             name                                          url segment           vc_source date_discovered quality_flag
+Kickass Companies           https://lowercarbon.com/companies/ startup Lowercarbon Capital      2026-06-26 needs_review
+   Climate Scoops      https://lowercarbon.com/climate-scoops/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Antora      https://lowercarbon.com/company/antora/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Crux        https://lowercarbon.com/company/crux/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Crusoe      https://lowercarbon.com/company/crusoe/ startup Lowercarbon Capital      2026-06-26 needs_review
+      Panthalassa https://lowercarbon.com/company/panthalassa/ startup Lowercarbon Capital      2026-06-26 needs_review
+     Solar Square https://lowercarbon.com/company/solarsquare/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Solugen     https://lowercarbon.com/company/solugen/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Heart       https://lowercarbon.com/company/heart/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Breathe     https://lowercarbon.com/company/breathe/ startup Lowercarbon Capital      2026-06-26 needs_review
+          Sublime     https://lowercarbon.com/company/sublime/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Charm       https://lowercarbon.com/company/charm/ startup Lowercarbon Capital      2026-06-26 needs_review
+            Lilac       https://lowercarbon.com/company/lilac/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mill        https://lowercarbon.com/company/mill/ startup Lowercarbon Capital      2026-06-26 needs_review
+           Nevoya      https://lowercarbon.com/company/nevoya/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Kula        https://lowercarbon.com/company/kula/ startup Lowercarbon Capital      2026-06-26 needs_review
+         Overview    https://lowercarbon.com/company/overview/ startup Lowercarbon Capital      2026-06-26 needs_review
+             Mosa        https://lowercarbon.com/company/mosa/ startup Lowercarbon Capital      2026-06-26 needs_review
+              Arc         https://lowercarbon.com/company/arc/ startup Lowercarbon Capital      2026-06-26 needs_review
+       Base Power  https://lowercarbon.com/company/base-power/ startup Lowercarbon Capital      2026-06-26 needs_review
+2026-06-26 00:17:47,282 [INFO] crawl_vc_portfolios: 
+NOTE: All results flagged 'needs_review'.
+2026-06-26 00:17:47,282 [INFO] crawl_vc_portfolios: Scan data/index/startup_candidates.csv and remove junk before using as startup list.
