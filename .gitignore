@@ -1,0 +1,10 @@
+.venv/
+data/raw/
+data/normalized/
+data/index/
+logs/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.vscode/
