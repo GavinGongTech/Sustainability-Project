@@ -1,0 +1,69 @@
+vc_source,url,http_status,fetch_method,rendered,n_external,n_detail,n_total,strategies,status,reason
+Lowercarbon Capital,https://lowercarboncapital.com/companies/,200,requests,False,108,0,108,card=7;anchor_text=101,ok,
+Breakthrough Energy Ventures,https://www.breakthroughenergy.org/portfolio,200,requests,False,0,0,0,,empty,no candidates extracted
+Energy Impact Partners,https://www.energyimpactpartners.com/_portfolio/,200,requests,False,1,0,1,card=1,ok,
+Prelude Ventures,https://www.preludeventures.com/portfolio,200,requests,False,13,47,60,card=60,ok,
+Congruent Ventures,https://congruentvc.com/portfolio,200,requests,False,1,36,37,card=36;anchor_text=1,ok,
+Khosla Ventures,https://www.khoslaventures.com/portfolio,200,requests,False,127,0,127,card=127,ok,
+Lux Capital,https://luxcapital.com/companies,200,requests,False,1,28,29,card=28;anchor_text=1,ok,
+The Engine Ventures,https://engineventures.com/companies,200,requests,False,2,57,59,card=59,ok,
+TPG Rise Climate,https://www.tpg.com/portfolio,200,requests,False,0,0,0,,empty,no candidates extracted
+Galvanize Climate Solutions,https://galvanizeclimate.com/venture-and-growth,200,requests,False,2,0,2,card=22;anchor_text=10,ok,
+G2 Venture Partners,https://g2vp.com/portfolio/,403,playwright,True,0,0,0,,empty,no candidates extracted
+Clean Energy Ventures,https://cleanenergyventures.com/portfolio,200,requests,False,133,0,133,card=30;anchor_text=106,ok,
+At One Ventures,https://www.atoneventures.com/portfolio,200,requests,False,2,51,53,card=51;logo_alt=1;anchor_text=2,ok,
+MCJ Collective,https://mcj.vc/portfolio,200,requests,False,3,20,23,card=22;anchor_text=1,ok,
+Trucks Venture Capital,https://www.trucks.vc/portfolio,200,requests,False,65,0,65,card=100;anchor_text=1,ok,
+Earthshot Ventures,https://www.earthshot.vc/companies,200,requests,False,6,0,6,card=6,ok,
+Powerhouse Ventures,https://powerhouse-ventures.co/portfolio,200,requests,False,1,0,1,anchor_text=1,ok,
+DCVC,https://www.dcvc.com/companies,200,requests,False,0,292,292,card=292,ok,
+Eclipse Ventures,https://eclipse.capital/companies,200,requests,False,1,1,2,card=1;anchor_text=1,ok,
+Material Impact,https://www.materialimpact.com/companies/,200,requests,False,2,0,2,anchor_text=2,ok,
+Fine Structure Ventures,https://finestructure.vc/portfolio,200,requests,False,3,0,3,card=25;anchor_text=2,ok,
+S2G Ventures,https://www.s2ginvestments.com/companies,200,requests,False,0,120,120,card=120,ok,
+AgFunder,https://agfunder.com/portfolio/,200,requests,False,1,52,53,card=52;anchor_text=2,ok,
+Astanor Ventures,https://astanor.com/portfolio/,200,requests,False,10,0,10,card=10,ok,
+Cultivian Sandbox Ventures,https://cultiviansbx.com/portfolio/,200,requests,False,0,20,20,card=20,ok,
+Blue Horizon,https://bluehorizon.com/ecosystem/,200,requests,False,76,0,76,card=76,ok,
+Supply Change Capital,https://supplychange.fund/#portfolio,200,requests,False,26,0,26,card=25;anchor_text=1,ok,
+Big Idea Ventures,https://bigideaventures.com/portfolio/,403,playwright,True,0,0,0,,empty,no candidates extracted
+Fall Line Capital,https://fall-line-capital.com/venture,200,requests,False,0,0,0,,empty,no candidates extracted
+SOSV IndieBio,https://sosv.com/portfolio,200,requests,False,0,10,10,anchor_text=10,ok,
+Fifty Years,https://fiftyyears.com/companies,200,requests,False,2,0,2,card=1;anchor_text=1,ok,
+Refactor Capital,https://refactor.com/,200,requests,False,55,0,55,card=54;logo_alt=1,ok,
+World Fund,https://worldfund.vc/portfolio,200,requests,False,1,23,24,card=23;anchor_text=1,ok,
+Planet A Ventures,https://www.planet-a.com/portfolio,200,requests,False,34,1,35,card=27;logo_alt=8,ok,
+Extantia Capital,https://www.extantia.com/pioneers,200,requests,False,1,0,1,card=1,ok,
+Pale Blue Dot,https://www.paleblue.vc/portfolio,200,requests,False,1,31,32,card=14;anchor_text=18,ok,
+Climentum Capital,https://climentum.com/portfolio,200,requests,False,1,0,1,anchor_text=1,ok,
+Contrarian Ventures,https://cventures.vc/portfolio,200,requests,False,1,31,32,card=31;anchor_text=1,ok,
+Norrsken VC,https://www.norrsken.vc/portfolio,200,requests,False,0,60,60,card=60,ok,
+2150,https://www.2150.vc/investments,200,requests,False,1,28,29,logo_alt=28;anchor_text=1,ok,
+Kiko Ventures,https://kiko.vc/our-portfolio/,200,requests,False,0,15,15,card=15,ok,
+Systemiq Capital,https://www.systemiqcapital.earth/portfolio-overview,200,requests,False,31,0,31,card=31,ok,
+Future Positive Capital,https://www.futurepositivecapital.com/companies,200,requests,False,0,15,15,card=1;logo_alt=14,ok,
+Prima Materia,https://primamateria.vc/portfolio,,requests,False,0,0,0,,failed,"Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://primamateria.vc/portfolio
+Call log:
+  - navigating to ""https://primamateria.vc/portfolio"", waiting until ""domco"
+Speedinvest,https://speedinvest.com/portfolio,403,playwright,True,50,13,63,card=62;anchor_text=47,ok,
+GM Ventures,https://www.gmventures.com/en/portfolio,200,requests,False,21,0,21,card=1;anchor_text=20,ok,
+Leaps by Bayer,https://leaps.bayer.com/companies/health,403,playwright,True,0,0,0,,empty,no candidates extracted
+Shell Ventures,https://www.shell.com/what-we-do/technology-and-innovation/innovate-with-shell/shell-ventures/portfolio.html,200,requests,False,0,0,0,,empty,no candidates extracted
+Amazon Climate Pledge Fund,https://fund.theclimatepledge.com/us/en/portfolio,200,requests,False,4,0,4,card=3;logo_alt=1,ok,
+Microsoft Climate Innovation Fund,https://www.microsoft.com/en-us/corporate-responsibility/sustainability/climate-innovation-fund,200,requests,False,62,1,63,card=58;anchor_text=6,ok,
+Third Derivative,https://www.third-derivative.org/portfolio/tag/cohort-25-3,200,requests,False,2,18,20,card=18;anchor_text=2,ok,
+Greentown Labs,https://greentownlabs.com/members/,200,requests,False,2,0,2,card=1;anchor_text=1,ok,
+New Energy Nexus,https://www.newenergynexus.com/portfolio/,200,requests,False,12,0,12,card=9;anchor_text=3,ok,
+Y Combinator Climate,https://www.ycombinator.com/companies?batch=&tags=climate,200,requests,False,0,0,0,,empty,no candidates extracted
+Techstars Sustainability,https://www.techstars.com/portfolio,200,requests,False,31,0,31,card=28;anchor_text=3,ok,
+Plug and Play,https://www.plugandplaytechcenter.com/innovation-services/startups/our-startups,200,requests,False,0,0,0,,empty,no candidates extracted
+Carbon13,https://carbonthirteen.com/our-portfolio/,200,requests,False,2,91,93,card=89;anchor_text=12,ok,
+Elemental Impact,https://elementalexcelerator.com/portfolio/,200,requests,False,157,0,157,card=144;logo_alt=1;anchor_text=12,ok,
+Urban Future Lab,https://ufl.nyc/portfolio,200,requests,False,10,0,10,card=8;anchor_text=2,ok,
+Cyclotron Road (Activate),https://activate.org/activate-companies,200,requests,False,0,0,0,,empty,no candidates extracted
+Chain Reaction Innovations,https://chainreaction.anl.gov/quantum-companies/,200,requests,False,5,0,5,logo_alt=2;anchor_text=3,ok,
+Innovation Crossroads,https://innovationcrossroads.ornl.gov/cohort,404,playwright,True,0,0,0,,empty,no candidates extracted
+SOSV HAX,https://hax.co/portfolio/,200,requests,False,5,12,17,card=17,ok,
+Cleantech Open,https://www.cleantechopen.org/en/custom/alumni/directory,200,requests,False,3,0,3,logo_alt=1;anchor_text=3,ok,
+Stanford Climate Ventures,https://www.stanfordclimateventures.org/companies,200,requests,False,1,0,1,anchor_text=1,ok,
+Harvard Climate Circle,https://innovationlabs.harvard.edu/ventures?program=climate-circle&industry=climate-and-sustainability,403,playwright,True,0,1,1,card=1,ok,

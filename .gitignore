@@ -7,4 +7,11 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
-.vscode/
+.vscode/data/cache/
+.venv/
+__pycache__/
+.DS_Store
+logs/
+config/.env
+data/normalized_ours_backup/
+data/normalized/
