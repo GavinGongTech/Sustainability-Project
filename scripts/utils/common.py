@@ -1,6 +1,14 @@
-"""
-utils/common.py
-Shared helpers used across all pipeline scripts.
+"""Shared utilities for the sustainability research pipeline.
+
+This module is the common foundation used by nearly every fetcher in the
+project. It centralizes configuration loading, logging setup, path creation,
+output markdown generation, and append-only master index updates.
+
+Why it matters:
+    - All scripts read the same config file and follow the same output schema.
+    - The master index keeps a single CSV inventory of all collected evidence.
+    - The output writers ensure every scraped source is saved in a consistent,
+      reviewable format for downstream classification.
 """
 
 import os
@@ -72,7 +80,8 @@ def safe_filename(s: str, max_len: int = 80) -> str:
 
 
 def source_filepath(company: str, source_type: str, year: int,
-                    base_dir: str = "data/normalized") -> Path:
+                    base_dir: str = "data/normalized",
+                    segment: str = "") -> Path:
     """Build a deterministic output path for one source file."""
     company_slug = safe_filename(company)
     source_slug = safe_filename(source_type)
@@ -94,22 +103,23 @@ def url_hash(url: str) -> str:
 # ── Markdown output ───────────────────────────────────────────────────────────
 
 def build_markdown(
-    text: str,
-    company: str,
-    segment: str,
-    source_type: str,
-    source_year: int,
-    source_url: str,
-    ticker: str = "",
-    industry: str = "",
-    sic: str = "",
-    naics: str = "",
-    exchange: str = "",
-    hq_country: str = "",
-    founded: str = "",
-    revenue_usd: str = "",
+    text:         str,
+    company:      str,
+    segment:      str,
+    source_type:  str,
+    source_year:  int,
+    source_url:   str,
+    ticker:       str = "",
+    industry:     str = "",
+    sic:          str = "",
+    naics:        str = "",
+    exchange:     str = "",
+    hq_country:   str = "",
+    founded:      str = "",
+    revenue_usd:  str = "",
     quality_flag: str = "clean",
-    ai_mention: Optional[bool] = None,
+    report_type:  str = "",
+    ai_mention:          Optional[bool] = None,
     sustainability_mention: Optional[bool] = None,
 ) -> str:
     """
@@ -144,6 +154,7 @@ hq_country: {hq_country}
 founded: {founded}
 revenue_usd: {revenue_usd}
 source_type: {source_type}
+report_type: {report_type}
 source_year: {source_year}
 source_url: {source_url}
 ai_mention: {yn(ai_mention)}
@@ -160,17 +171,38 @@ date_fetched: {date.today().isoformat()}
 
 INDEX_COLUMNS = [
     "company", "segment", "ticker", "industry",
-    "source_type", "source_year", "source_url",
+    "source_type", "report_type", "source_year", "source_url",
     "file_path", "quality_flag",
 ]
 
 
-def append_to_index(row: dict, index_path: str = "data/index/master_index.csv"):
+def append_to_index(row: dict, index_path: str = "data/index/master_index.csv", key_fields: tuple = ()):
     """Append one row to the master CSV index. Creates file+header if absent."""
     import pandas as pd
     Path(index_path).parent.mkdir(parents=True, exist_ok=True)
-    df_new = pd.DataFrame([{col: row.get(col, "") for col in INDEX_COLUMNS}])
+    # Ensure all INDEX_COLUMNS are present, fill missing with empty string
+    row_filled = {col: row.get(col, "") for col in INDEX_COLUMNS}
+    df_new = pd.DataFrame([row_filled])
     if Path(index_path).exists():
         df_new.to_csv(index_path, mode="a", header=False, index=False)
     else:
         df_new.to_csv(index_path, index=False)
+
+
+def get_secret(yaml_key: str, env_var: str) -> str | None:
+    """Look up an API key from config/secrets.yaml first, then env var."""
+    import os
+    import yaml
+    from pathlib import Path
+
+    secrets_path = Path("config/secrets.yaml")
+    if secrets_path.exists():
+        try:
+            with open(secrets_path) as f:
+                secrets = yaml.safe_load(f) or {}
+            if yaml_key in secrets:
+                return secrets[yaml_key]
+        except Exception:
+            pass
+    return os.environ.get(env_var)
+

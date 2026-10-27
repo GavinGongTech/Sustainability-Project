@@ -1,14 +1,12 @@
-"""
-scripts/utils/web_scraper.py
+"""Generic web scraping utilities for research collection.
 
-Generic scraper for company websites: product pages, engineering blogs,
-press releases, ESG reports (HTML), IR pages.
+This module provides the project’s default approach for harvesting page text from
+company and startup websites. It is intentionally conservative: first try a
+normal HTML fetch with requests, then fall back to a browser-rendered fetch when
+Dynamic JavaScript pages or thin HTML content make a simple scrape unreliable.
 
-For JS-heavy pages, falls back to Playwright automatically.
-
-Usage (as a module):
-    from scripts.utils.web_scraper import scrape_url
-    text = scrape_url("https://example.com/sustainability")
+This is the shared fallback layer used by startup crawls and by any fetcher that
+needs a page’s textual content from a website without a dedicated API.
 """
 
 import time
@@ -37,26 +35,50 @@ STRIP_TAGS = [
 def clean_html(html: str) -> str:
     """Strip boilerplate and return clean body text."""
     soup = BeautifulSoup(html, "lxml")
-
-    # Remove junk tags
     for tag in soup(STRIP_TAGS):
         tag.decompose()
 
-    # Try to find the main content block
-    main = (
-        soup.find("main") or
-        soup.find("article") or
-        soup.find(id=lambda x: x and "content" in x.lower()) or
-        soup.find(class_=lambda x: x and "content" in " ".join(x).lower()
-                  if isinstance(x, list) else "content" in x.lower()) or
-        soup.body or
-        soup
-    )
+    def has_content_class(x):
+        if not x:
+            return False
+        vals = x if isinstance(x, list) else [x]
+        joined = " ".join(vals).lower()
+        if any(bad in joined for bad in ["nav", "menu", "footer", "header", "sidebar"]):
+            return False
+        return "content" in joined
+
+    def is_good_content_id(x):
+        if not x:
+            return False
+        x_lower = x.lower()
+        if any(bad in x_lower for bad in ["nav", "menu", "footer", "header", "sidebar"]):
+            return False
+        return "content" in x_lower
+
+    candidates = [
+        soup.find("main"),
+        soup.find("article"),
+        soup.find(id=is_good_content_id),
+        soup.find(class_=has_content_class),
+        soup.body,
+        soup,
+    ]
+
+    # Try each candidate in order; skip ones that are too thin, fall through to body/soup
+    main = None
+    for candidate in candidates:
+        if candidate is None:
+            continue
+        candidate_text_len = len(candidate.get_text(separator="\n").strip())
+        if candidate_text_len >= 200 or candidate is soup.body or candidate is soup:
+            main = candidate
+            break
+    if main is None:
+        main = soup.body or soup
 
     lines = [l.strip() for l in main.get_text(separator="\n").splitlines()]
-    lines = [l for l in lines if len(l) > 20]  # drop very short lines
+    lines = [l for l in lines if len(l) > 20]
     return "\n".join(lines)
-
 
 def scrape_url_requests(url: str, headers: dict | None = None) -> str | None:
     """Fetch a URL with requests. Returns cleaned text or None on failure."""
@@ -80,7 +102,9 @@ def scrape_url_playwright(url: str) -> str | None:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
-            page.goto(url, wait_until="networkidle", timeout=30000)
+            page.goto(url, wait_until="domcontentloaded", timeout=15000)
+            import time
+            time.sleep(2)
             html = page.content()
             browser.close()
         return clean_html(html)
