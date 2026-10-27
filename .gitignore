@@ -1,6 +1,5 @@
 .venv/
 data/raw/
-data/normalized/
 data/index/
 logs/
 __pycache__/
@@ -15,4 +14,3 @@ __pycache__/
 logs/
 config/.env
 data/normalized_ours_backup/
-data/normalized/
